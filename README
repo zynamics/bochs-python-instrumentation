@@ -1,21 +1,27 @@
 
 
-This patch for Bochs provides a Python interpreter instead of Bochs' own debugger, yet still providing the debugger functionality. It also allows to interact with the instrumentation interface on-demand, by dynamically associating Python methods to handle instrumentation events.
+This patch for Bochs provides a Python interpreter instead of Bochs' own
+debugger, yet still providing the debugger functionality.  It also
+allows to interact with the instrumentation interface on-demand, by
+dynamically associating Python methods to handle instrumentation events.
 
 
-Notes:
-----------------------
+Notes: ----------------------
 
-The patch has been testes mostly tested under a Linux environment but there should not be any limitations preventing it from working wherever Bochs compiles.
+The patch has been testes mostly tested under a Linux environment but
+there should not be any limitations preventing it from working wherever
+Bochs compiles.
 
-We will attempt to release a working patch for every single public release of Bochs. Usually the patches tend to work for a while on the CVS version without modification.
+We will attempt to release a working patch for every single public
+release of Bochs.  Usually the patches tend to work for a while on the
+CVS version without modification.
 
-Installation:
-----------------------
+Installation: ----------------------
 
 -Grab the Bochs source code version corresponding to the patch
 
--Apply the patch. Go into the directory containing Bochs' source code and run: 
+-Apply the patch.  Go into the directory containing Bochs' source code
+and run:
 
   patch -p1 < ../bochs_python-XXXXX.diff
 
@@ -23,75 +29,89 @@ Adjust it accordingly to match the location/name of the patch
 
 -Run: autoconf
 
--Run: "./configure --enable-debugger --enable-instrumentation=python_hooks"
-  Other recommended options are:
+-Run: "./configure --enable-debugger
+  --enable-instrumentation=python_hooks" Other recommended options are:
     --enable-x86-debugger --enable-sep --enable-all-optimizations
     --enable-show-ips --enable-fast-function-calls --enable-global-pages
-    --enable-host-specific-asms --enable-icache --enable-fpu --enable-pci
-    --enable-mmx --enable-sse --enable-cpu-level=6 --enable-vbe
-    --enable-repeat-speedups --enable-guest2host-tlb --enable-ignore-bad-msr
+    --enable-host-specific-asms --enable-fpu --enable-pci --enable-mmx
+    --enable-sse --enable-cpu-level=6 --enable-vbe
+    --enable-repeat-speedups --enable-ignore-bad-msr
 
-Depending on your environment you might want to disable some of the graphic front-ends:
+Depending on your environment you might want to disable some of the
+graphic front-ends:
 
-  --without-sdl
-  --without-x11
-  --without-x
-  --without-wx
+  --without-sdl --without-x11 --without-x --without-wx
 
 or enable others such as: --with-nogui
 
 -Run: make
 
 
-Usage:
-----------------------
+Usage: ----------------------
 
-If the patching and compiling ran correctly a bochs binary should have been produced. This version will sport a interactive Python command line instead of the standard Bochs debugger, exhibiting the Bochs debugger functionality as well as additional one through different modules in the Python interpreter
-namespace.
+If the patching and compiling ran correctly a bochs binary should have
+been produced.  This version will sport a interactive Python command
+line instead of the standard Bochs debugger, exhibiting the Bochs
+debugger functionality as well as additional one through different
+modules in the Python interpreter namespace.
 
-The methods available under module "bx" will provide most of the original debugger's functionality.
+The methods available under module "bx" will provide most of the
+original debugger's functionality.
 
-For instance, the "cont" command, to resume execution, will be exposed as bx.cont(). Similarly, "stepN <cpu> <number>" is available as bx.stepN(cpu, number).
+For instance, the "cont" command, to resume execution, will be exposed
+as bx.cont().  Similarly, "stepN <cpu> <number>" is available as
+bx.stepN(cpu, number).
 
-Running dir(bx) on the Python interpreter command line will show the methods and attributes available through the "bx" module.
+Running dir(bx) on the Python interpreter command line will show the
+methods and attributes available through the "bx" module.
 
-The "cpu" module will provide means of writing and reading to/from the CPU registers. The module consists of the get() and set() methods plus all the register constants to pass to those methods.
+The "cpu" module will provide means of writing and reading to/from the
+CPU registers.  The module consists of the get() and set() methods plus
+all the register constants to pass to those methods.
 
-  cpu.get(cpu.EAX)        # returns the value of EAX
-  cpu.set(cpu.EAX, value) # assigns to EAX a given value. Any register should
-                        # be available, even EIP
+  cpu.get(cpu.EAX) # returns the value of EAX cpu.set(cpu.EAX, value) #
+  assigns to EAX a given value.  Any register should
+			# be available, even EIP
 
 (Same applies for 64-bit registers)
 
-The "dbg" module encapsulates extra functionality allowing to set callbacks for Bochs' powerful instrumentation interface. As an example, in order to read 1KiB of virtual memory starting from the address contained in EIP:
+The "dbg" module encapsulates extra functionality allowing to set
+callbacks for Bochs' powerful instrumentation interface.  As an example,
+in order to read 1KiB of virtual memory starting from the address
+contained in EIP:
 
   mem_at_eip = dbg.read_memory_block_linear(cpu.get(cpu.EIP), 1024)
 
-To hook the "new instruction" instrumentation call and memory access events:
+To hook the "new instruction" instrumentation call and memory access
+events:
 
   dbg.set_callback(dbg.INSTR_NEW_INSTRUCTION, method1)
   dbg.set_callback(dbg.INSTR_MEM_DATA, method2)
 
 
-Where method1 y method2 are Python methods. The methods will take the same parameters as specified in the instrumentation interface in Bochs.
+Where method1 y method2 are Python methods.  The methods will take the
+same parameters as specified in the instrumentation interface in Bochs.
 
 To capture interrupts:
 
   dbg.set_callback(dbg.INSTR_INTERRUPT, do_int)
 
-The method should take two arguments: "def do_int(cpu_number, int_vector):"
+The method should take two arguments: "def do_int(cpu_number,
+int_vector):"
 
-For "dbg.set_callback(dbg.INSTR_NEW_INSTRUCTION, method1)" method1 would be:
+For "dbg.set_callback(dbg.INSTR_NEW_INSTRUCTION, method1)" method1 would
+be:
 
-  def method1(cpu_num): 
-    print cpu_num, hex(cpu.get(cpu.EIP))
+  def method1(cpu_num): print cpu_num, hex(cpu.get(cpu.EIP))
 
-For "dbg.set_callback(dbg.INSTR_MEM_DATA_ACCESS, method2)" method2 would look like:
+For "dbg.set_callback(dbg.INSTR_MEM_DATA_ACCESS, method2)" method2 would
+look like:
 
-  def method2(cpu_number, segment, offset, length, mode_rw):
-    print cpu_number, segment, hex(offset), length, mode_rw
-    
-The methods installed through "set_callback" will be called every time the corresponding event takes place.
-To reset a callback suffices to pass None as the method.
+  def method2(cpu_number, segment, offset, length, mode_rw): print
+    cpu_number, segment, hex(offset), length, mode_rw
+
+The methods installed through "set_callback" will be called every time
+the corresponding event takes place.  To reset a callback suffices to
+pass None as the method.
 
 
