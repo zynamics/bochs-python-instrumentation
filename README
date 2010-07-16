@@ -72,9 +72,9 @@ The "cpu" module will provide means of writing and reading to/from the
 CPU registers.  The module consists of the get() and set() methods plus
 all the register constants to pass to those methods.
 
-  cpu.get(cpu.EAX) # returns the value of EAX cpu.set(cpu.EAX, value) #
-  assigns to EAX a given value.  Any register should
-			# be available, even EIP
+  cpu.get(cpu.EAX) # returns the value of EAX
+  cpu.set(cpu.EAX, value) # assigns to EAX a given value.  Any register
+                          # should be available, even EIP
 
 (Same applies for 64-bit registers)
 
@@ -105,16 +105,15 @@ int_vector):"
 For "dbg.set_callback(dbg.INSTR_NEW_INSTRUCTION, method1)" method1 would
 be:
 
-  def method1(cpu_num): print cpu_num, hex(cpu.get(cpu.EIP))
+  def method1(cpu_num): 
+    print cpu_num, hex(cpu.get(cpu.EIP))
 
 For "dbg.set_callback(dbg.INSTR_MEM_DATA_ACCESS, method2)" method2 would
 look like:
 
-  def method2(cpu_number, segment, offset, length, mode_rw): print
-    cpu_number, segment, hex(offset), length, mode_rw
+  def method2(cpu_number, segment, offset, length, mode_rw):
+    print cpu_number, segment, hex(offset), length, mode_rw
 
 The methods installed through "set_callback" will be called every time
 the corresponding event takes place.  To reset a callback suffices to
 pass None as the method.
-
-
