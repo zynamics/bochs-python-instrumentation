@@ -83,12 +83,12 @@ The method should take two arguments: "def do_int(cpu_number, int_vector):"
 
 For "dbg.set_callback(dbg.INSTR_NEW_INSTRUCTION, method1)" method1 would be:
 
-def method1(cpu_number):
-    some code here
+  def method1(cpu_num): 
+    print cpu_num, hex(cpu.get(cpu.EIP))
 
 For "dbg.set_callback(dbg.INSTR_MEM_DATA_ACCESS, method2)" method2 would look like:
 
-def method2(cpu_number, segment, offset, length, mode_rw):
+  def method2(cpu_number, segment, offset, length, mode_rw):
     print cpu_number, segment, hex(offset), length, mode_rw
     
 The methods installed through "set_callback" will be called every time the corresponding event takes place.
