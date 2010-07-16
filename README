@@ -6,7 +6,8 @@ allows to interact with the instrumentation interface on-demand, by
 dynamically associating Python methods to handle instrumentation events.
 
 
-Notes: ----------------------
+Notes:
+---------------------------------------------------------------------
 
 The patch has been testes mostly tested under a Linux environment but
 there should not be any limitations preventing it from working wherever
@@ -16,7 +17,8 @@ We will attempt to release a working patch for every single public
 release of Bochs.  Usually the patches tend to work for a while on the
 CVS version without modification.
 
-Installation: ----------------------
+Installation:
+---------------------------------------------------------------------
 
 -Grab the Bochs source code version corresponding to the patch
 
@@ -31,11 +33,11 @@ Adjust it accordingly to match the location/name of the patch
 
 -Run: "./configure --enable-debugger
   --enable-instrumentation=python_hooks" Other recommended options are:
-    --enable-x86-debugger --enable-sep --enable-all-optimizations
-    --enable-show-ips --enable-fast-function-calls --enable-global-pages
-    --enable-host-specific-asms --enable-fpu --enable-pci --enable-mmx
-    --enable-sse --enable-cpu-level=6 --enable-vbe
-    --enable-repeat-speedups --enable-ignore-bad-msr
+    --enable-x86-debugger --enable-all-optimizations
+    --enable-show-ips --enable-fast-function-calls
+    --enable-host-specific-asms --enable-fpu --enable-pci
+    --enable-cpu-level=6 --enable-vbe
+    --enable-repeat-speedups
 
 Depending on your environment you might want to disable some of the
 graphic front-ends:
@@ -47,7 +49,8 @@ or enable others such as: --with-nogui
 -Run: make
 
 
-Usage: ----------------------
+Usage:
+---------------------------------------------------------------------
 
 If the patching and compiling ran correctly a bochs binary should have
 been produced.  This version will sport a interactive Python command
