@@ -3,27 +3,27 @@
 This patch for Bochs provides a Python interpreter instead of Bochs' own debugger, yet still providing the debugger functionality. It also allows to interact with the instrumentation interface on-demand, by dynamically associating Python methods to handle instrumentation events.
 
 
-Notes____________________________________________________
-_________________________________________________________
+Notes:
+----------------------
 
 The patch has been testes mostly tested under a Linux environment but there should not be any limitations preventing it from working wherever Bochs compiles.
 
 We will attempt to release a working patch for every single public release of Bochs. Usually the patches tend to work for a while on the CVS version without modification.
 
-Installation_____________________________________________
-_________________________________________________________
+Installation:
+----------------------
 
 -Grab the Bochs source code version corresponding to the patch
 
--Apply the patch. Go into your the directory containing Bochs' source code and run: 
+-Apply the patch. Go into the directory containing Bochs' source code and run: 
 
   patch -p1 < ../bochs_python-XXXXX.diff
 
-Adjust accordingly to match the location/name of the patch
+Adjust it accordingly to match the location/name of the patch
 
 -Run: autoconf
 
--Run: "configure --enable-debugger --enable-instrumentation=python_hooks"
+-Run: "./configure --enable-debugger --enable-instrumentation=python_hooks"
   Other recommended options are:
     --enable-x86-debugger --enable-sep --enable-all-optimizations
     --enable-show-ips --enable-fast-function-calls --enable-global-pages
@@ -31,18 +31,27 @@ Adjust accordingly to match the location/name of the patch
     --enable-mmx --enable-sse --enable-cpu-level=6 --enable-vbe
     --enable-repeat-speedups --enable-guest2host-tlb --enable-ignore-bad-msr
 
+Depending on your environment you might want to disable some of the graphic front-ends:
+
+  --without-sdl
+  --without-x11
+  --without-x
+  --without-wx
+
+or enable others such as: --with-nogui
+
 -Run: make
 
 
-Usage____________________________________________________
-_________________________________________________________
+Usage:
+----------------------
 
 If the patching and compiling ran correctly a bochs binary should have been produced. This version will sport a interactive Python command line instead of the standard Bochs debugger, exhibiting the Bochs debugger functionality as well as additional one through different modules in the Python interpreter
 namespace.
 
 The methods available under module "bx" will provide most of the original debugger's functionality.
 
-For instance, the "cont" command, to resume execution, will be exposed as bx.cont(). Similarly, "stepN <number>" is available as bx.stepN(number).
+For instance, the "cont" command, to resume execution, will be exposed as bx.cont(). Similarly, "stepN <cpu> <number>" is available as bx.stepN(cpu, number).
 
 Running dir(bx) on the Python interpreter command line will show the methods and attributes available through the "bx" module.
 
@@ -77,10 +86,10 @@ For "dbg.set_callback(dbg.INSTR_NEW_INSTRUCTION, method1)" method1 would be:
 def method1(cpu_number):
     some code here
 
-For "dbg.set_callback(dbg.INSTR_MEM_DATA, method2)" method2 would look like:
+For "dbg.set_callback(dbg.INSTR_MEM_DATA_ACCESS, method2)" method2 would look like:
 
-def method2(cpu_number, virtual_address, length, mode_rw):
-    some code here
+def method2(cpu_number, segment, offset, length, mode_rw):
+    print cpu_number, segment, hex(offset), length, mode_rw
     
 The methods installed through "set_callback" will be called every time the corresponding event takes place.
 To reset a callback suffices to pass None as the method.
