@@ -1,4 +1,4 @@
-diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/Makefile.in bochs_py/Makefile.in
+diff -x .DS_Store -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/Makefile.in bochs_py/Makefile.in
 --- bochs/Makefile.in	2010-03-01 13:27:09.000000000 +0100
 +++ bochs_py/Makefile.in	2010-03-01 13:27:53.000000000 +0100
 @@ -89,7 +89,7 @@
@@ -19,7 +19,7 @@ diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/
  
  #SUBDIRS = iodev bx_debug
  
-diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/bx_debug/Makefile.in bochs_py/bx_debug/Makefile.in
+diff -x .DS_Store -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/bx_debug/Makefile.in bochs_py/bx_debug/Makefile.in
 --- bochs/bx_debug/Makefile.in	2010-02-22 19:36:35.000000000 +0100
 +++ bochs_py/bx_debug/Makefile.in	2010-02-22 19:35:38.000000000 +0100
 @@ -48,7 +48,7 @@
@@ -58,10 +58,10 @@ diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/
    ../bx_debug/debug.h ../config.h ../osdep.h ../bxversion.h \
    ../gui/siminterface.h ../memory/memory.h ../pc_system.h ../plugin.h \
    ../extplugin.h ../ltdl.h ../gui/gui.h ../instrument/stubs/instrument.h \
-diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/bx_debug/dbg_python.cc bochs_py/bx_debug/dbg_python.cc
+diff -x .DS_Store -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/bx_debug/dbg_python.cc bochs_py/bx_debug/dbg_python.cc
 --- bochs/bx_debug/dbg_python.cc	1970-01-01 01:00:00.000000000 +0100
-+++ bochs_py/bx_debug/dbg_python.cc	2010-03-01 11:46:33.000000000 +0100
-@@ -0,0 +1,5983 @@
++++ bochs_py/bx_debug/dbg_python.cc	2011-01-26 19:58:49.000000000 +0100
+@@ -0,0 +1,5987 @@
 +//
 +//  Copyright (C) 2001  MandrakeSoft S.A.
 +//
@@ -1938,6 +1938,10 @@ diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/
 +     // Callbacks in the instrumentation interface
 +    {"set_callback",  set_callback, METH_VARARGS,
 +     "Set a callback for the given instrumentation function."},
++    {"get_cpu_icount",  get_cpu_icount, METH_VARARGS,
++     "Get the instruction count for a CPU."},
++    {"get_total_cpu_icount",  get_total_cpu_icount, METH_VARARGS,
++     "Get the total instruction count for all CPUs. Both for single processor and SMP systems."},
 +    {NULL, NULL, 0, NULL}
 +};
 +
@@ -6045,7 +6049,7 @@ diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/
 +}
 +
 +#endif /* if BX_DEBUGGER */
-diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/config.h.in bochs_py/config.h.in
+diff -x .DS_Store -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/config.h.in bochs_py/config.h.in
 --- bochs/config.h.in	2010-03-01 13:27:09.000000000 +0100
 +++ bochs_py/config.h.in	2010-03-01 13:27:53.000000000 +0100
 @@ -636,6 +636,7 @@
@@ -6056,7 +6060,7 @@ diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/
  
  // enable BX_DEBUG/BX_ERROR/BX_INFO messages
  #define BX_NO_LOGGING 0
-diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/configure.in bochs_py/configure.in
+diff -x .DS_Store -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/configure.in bochs_py/configure.in
 --- bochs/configure.in	2010-03-01 13:27:14.000000000 +0100
 +++ bochs_py/configure.in	2010-03-01 13:28:01.000000000 +0100
 @@ -56,7 +56,7 @@
@@ -6175,7 +6179,7 @@ diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/
  
  dnl // serial mode 'socket' needs wsock32.dll in non-plugin mode
  if test "$bx_plugins" = 0; then
-diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/cpu/Makefile.in bochs_py/cpu/Makefile.in
+diff -x .DS_Store -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/cpu/Makefile.in bochs_py/cpu/Makefile.in
 --- bochs/cpu/Makefile.in	2010-02-22 19:36:36.000000000 +0100
 +++ bochs_py/cpu/Makefile.in	2010-02-22 19:35:39.000000000 +0100
 @@ -37,7 +37,7 @@
@@ -6187,7 +6191,7 @@ diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/
  
  # Objects which are synced between the cpu and cpu64 code and
  # are used for either compile.
-diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/fpu/Makefile.in bochs_py/fpu/Makefile.in
+diff -x .DS_Store -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/fpu/Makefile.in bochs_py/fpu/Makefile.in
 --- bochs/fpu/Makefile.in	2010-02-22 19:36:37.000000000 +0100
 +++ bochs_py/fpu/Makefile.in	2010-02-22 19:35:41.000000000 +0100
 @@ -39,7 +39,7 @@
@@ -6199,7 +6203,7 @@ diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/
  
  OBJS = ferr.o fpu.o fpu_arith.o fpu_compare.o fpu_const.o \
                 fpu_load_store.o fpu_misc.o fpu_trans.o fpu_tags.o \
-diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/gui/Makefile.in bochs_py/gui/Makefile.in
+diff -x .DS_Store -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/gui/Makefile.in bochs_py/gui/Makefile.in
 --- bochs/gui/Makefile.in	2010-02-22 19:36:37.000000000 +0100
 +++ bochs_py/gui/Makefile.in	2010-02-22 19:35:41.000000000 +0100
 @@ -49,7 +49,7 @@
@@ -6211,8 +6215,7 @@ diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/
  
  GUI_OBJS_X11  = x.o
  GUI_OBJS_SDL = sdl.o
-Binary files bochs/instrument/.DS_Store and bochs_py/instrument/.DS_Store differ
-diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/instrument/python_hooks/Makefile.in bochs_py/instrument/python_hooks/Makefile.in
+diff -x .DS_Store -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/instrument/python_hooks/Makefile.in bochs_py/instrument/python_hooks/Makefile.in
 --- bochs/instrument/python_hooks/Makefile.in	1970-01-01 01:00:00.000000000 +0100
 +++ bochs_py/instrument/python_hooks/Makefile.in	2009-08-07 04:08:13.000000000 +0200
 @@ -0,0 +1,81 @@
@@ -6298,10 +6301,10 @@ diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/
 +instrument.o: instrument.@CPP_SUFFIX@ ../../bochs.h ../../config.h
 +interpreter.o: interpreter.@CPP_SUFFIX@ ../../bochs.h ../../config.h
 \ No newline at end of file
-diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/instrument/python_hooks/instrument.cc bochs_py/instrument/python_hooks/instrument.cc
+diff -x .DS_Store -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/instrument/python_hooks/instrument.cc bochs_py/instrument/python_hooks/instrument.cc
 --- bochs/instrument/python_hooks/instrument.cc	1970-01-01 01:00:00.000000000 +0100
-+++ bochs_py/instrument/python_hooks/instrument.cc	2010-02-24 11:43:34.000000000 +0100
-@@ -0,0 +1,939 @@
++++ bochs_py/instrument/python_hooks/instrument.cc	2011-01-26 19:55:32.000000000 +0100
+@@ -0,0 +1,979 @@
 +/////////////////////////////////////////////////////////////////////////
 +// $Id: instrument.cc,v 1.13.2.1 2005/07/08 07:17:06 vruppert Exp $
 +/////////////////////////////////////////////////////////////////////////
@@ -6496,6 +6499,46 @@ diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/
 +    return return_value;
 +}
 +
++
++PyObject *get_cpu_icount(PyObject *self, PyObject *args)
++{
++    unsigned int cpu;
++    
++    if( !PyArg_ParseTuple(args, "I", &cpu) ) {
++        bochs_handle_error();
++        Py_RETURN_NONE;
++    }
++    
++    dbg_printf("get_cpu_icount: got cpu num %d\n", cpu);
++    
++    if( cpu >= BX_SMP_PROCESSORS )
++        Py_RETURN_NONE;
++
++    dbg_printf("get_cpu_icount: got cpu num %d, icount is %d\n", cpu, BX_CPU(cpu)->guard_found.icount);
++
++    return PyLong_FromLong( (unsigned) BX_CPU(cpu)->guard_found.icount );
++}
++
++
++// For SMP and non-SMP system will return the total icount = 
++// = SUM(cpy[idx].icount for idx in BX_SMP_PROCESSORS)
++// takes no args
++PyObject *get_total_cpu_icount(PyObject *self, PyObject *args)
++{
++    Bit32u total_count = 0;
++
++    if(!PyArg_ParseTuple(args, "")) {
++        bochs_handle_error();
++        Py_RETURN_NONE;
++    }
++
++    for (unsigned n=0; n < BX_SMP_PROCESSORS; n++) {
++        total_count += BX_CPU(n)->guard_found.icount;
++        dbg_printf("get_total_cpu_icount: got cpu num %d, icount is %d\n", n, BX_CPU(n)->guard_found.icount);
++    }
++    
++    return PyLong_FromLong( (unsigned) total_count );
++}
 +
 +
 +int get_long_from_python_object(PyObject *pObj, bx_address *val)
@@ -7241,10 +7284,10 @@ diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/
 +    va_end(ap);
 +}
 +
-diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/instrument/python_hooks/instrument.h bochs_py/instrument/python_hooks/instrument.h
+diff -x .DS_Store -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/instrument/python_hooks/instrument.h bochs_py/instrument/python_hooks/instrument.h
 --- bochs/instrument/python_hooks/instrument.h	1970-01-01 01:00:00.000000000 +0100
-+++ bochs_py/instrument/python_hooks/instrument.h	2010-02-22 20:14:14.000000000 +0100
-@@ -0,0 +1,258 @@
++++ bochs_py/instrument/python_hooks/instrument.h	2011-01-26 19:30:53.000000000 +0100
+@@ -0,0 +1,260 @@
 +/////////////////////////////////////////////////////////////////////////
 +// $Id: instrument.h,v 1.17.2.2 2005/07/08 07:17:06 vruppert Exp $
 +/////////////////////////////////////////////////////////////////////////
@@ -7364,6 +7407,8 @@ diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/
 +void instr_callback(int callback_idx, unsigned cpu, ...);
 +PyObject *set_callback(PyObject *self, PyObject *args);
 +PyObject *set_filter_cr3(PyObject *self, PyObject *args);
++PyObject *get_cpu_icount(PyObject *self, PyObject *args);
++PyObject *get_total_cpu_icount(PyObject *self, PyObject *args);
 +
 +
 +
@@ -7503,7 +7548,7 @@ diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/
 +/* called from command line debugger */
 +#define BX_INSTR_DEBUG_PROMPT()
 +#define BX_INSTR_DEBUG_CMD(cmd)
-diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/instrument/python_hooks/interpreter.cc bochs_py/instrument/python_hooks/interpreter.cc
+diff -x .DS_Store -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/instrument/python_hooks/interpreter.cc bochs_py/instrument/python_hooks/interpreter.cc
 --- bochs/instrument/python_hooks/interpreter.cc	1970-01-01 01:00:00.000000000 +0100
 +++ bochs_py/instrument/python_hooks/interpreter.cc	2009-08-07 04:08:13.000000000 +0200
 @@ -0,0 +1,854 @@
@@ -8361,7 +8406,7 @@ diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/
 +    Py_Finalize();
 +}
 +
-diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/instrument/python_hooks/interpreter.h bochs_py/instrument/python_hooks/interpreter.h
+diff -x .DS_Store -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/instrument/python_hooks/interpreter.h bochs_py/instrument/python_hooks/interpreter.h
 --- bochs/instrument/python_hooks/interpreter.h	1970-01-01 01:00:00.000000000 +0100
 +++ bochs_py/instrument/python_hooks/interpreter.h	2009-08-07 04:08:13.000000000 +0200
 @@ -0,0 +1,44 @@
@@ -8409,7 +8454,7 @@ diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/
 +void shutdown_interpreter(void);
 +int handle_error(void);
 +int execute_input(char *input);
-diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/iodev/Makefile.in bochs_py/iodev/Makefile.in
+diff -x .DS_Store -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/iodev/Makefile.in bochs_py/iodev/Makefile.in
 --- bochs/iodev/Makefile.in	2010-02-22 19:36:37.000000000 +0100
 +++ bochs_py/iodev/Makefile.in	2010-02-22 19:35:42.000000000 +0100
 @@ -38,9 +38,6 @@
@@ -8436,7 +8481,7 @@ diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/
  PCIDEV_CXXFLAGS = -I$(srcdir)/../host/linux/pcidev
  
  OBJS_THAT_CANNOT_BE_PLUGINS = \
-diff -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/memory/Makefile.in bochs_py/memory/Makefile.in
+diff -x .DS_Store -x bxversion.rc -x autom4te.cache -x CVS -x '*.#*' -x configure -urN bochs/memory/Makefile.in bochs_py/memory/Makefile.in
 --- bochs/memory/Makefile.in	2010-02-22 19:36:38.000000000 +0100
 +++ bochs_py/memory/Makefile.in	2010-02-22 19:35:42.000000000 +0100
 @@ -36,7 +36,7 @@
