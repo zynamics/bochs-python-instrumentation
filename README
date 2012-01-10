@@ -1,3 +1,9 @@
+zynamics Bochs Python Instrumentation Patch has moved to Google Code
+===========================================+++++++++++==============
+
+This repository has moved to Google Code:
+http://code.google.com/p/zynamics/source/checkout?repo=bochs-python
+
 
 
 This patch for Bochs provides a Python interpreter instead of Bochs' own
